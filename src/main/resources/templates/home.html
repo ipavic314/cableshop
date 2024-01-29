@@ -35,7 +35,12 @@
                 </span>
             </td>
 
-            <td></td>
+            <td>
+                <form th:action="@{/addCableToCart/{id}(id=${cable.id})}" method="post">
+                    <input type="number" step="1" min="0" max="99" value="1" name="quantity" />
+                    <button type="submit">Add more to cart</button>
+                </form>
+            </td>
 
         </tr>
         </tbody>
@@ -95,6 +100,11 @@
         <button type="submit">Save new Cable</button>
 
     </form>
+
+    <br>
+    <br>
+
+    <h2>Cart View</h2>
 
 
 </body>
