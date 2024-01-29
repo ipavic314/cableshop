@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h2>Hello Dear Customer</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ID </th>
+            <th> Name </th>
+            <th> Is Conductive</th>
+            <th> Price </th>
+            <th> Tags </th>
+            <th> Add to cart </th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cable : ${cables}">
+            <td><span th:text="${cable.id}"> ID </span></td>
+            <td><span th:text="${cable.name}"> Conductivity </span></td>
+            <td><span th:text="${cable.conductivity}"> Conductivity </span></td>
+            <td><span th:text="${cable.price}"> Conductivity </span></td>
+
+            <td>
+                <!-- Display tags using th:each -->
+                <span th:each="tag, iterationStatus :${cable.cableTags}">
+                    <span th:text="${tag.name}"></span>
+                    <span th:if="${!iterationStatus.last}">,</span>
+                </span>
+            </td>
+
+            <td></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+
+    <form method="post" th:object="${createCable}" th:action="@{/saveCable}">
+
+        <div th:if="${#fields.hasErrors()}">
+            <p th:each="error : ${#fields.errors()}" th:text="${error}"></p>
+        </div>
+
+        <label for="name">Name: </label>
+        <input type="text" name="createCable.name" th:field="*{name}" placeholder="Name" id="name"/>
+
+        <label>is conductive</label>
+        <input type="checkbox" name="createCable.conductivity" th:field="*{conductivity}" id="conductivity"/>
+
+        <label>price: </label>
+        <input type="number" name="createCable.price" th:field="*{price}" placeholder="price" id="price"/>
+
+        <button type="submit">Save new Cable</button>
+
+    </form>
+
+    <br>
+    <br>
+
+    <h1>Here you can add Tags</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th> ID </th>
+            <th> Name </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="cable : ${cableTags}">
+            <td><span th:text="${cable.id}"> ID </span></td>
+            <td><span th:text="${cable.name}"> Conductivity </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form method="post" th:object="${createCableTag}" th:action="@{/saveCableTag}">
+
+        <div th:if="${#fields.hasErrors()}">
+            <p th:each="error : ${#fields.errors()}" th:text="${error}"></p>
+        </div>
+
+        <label for="name">Name: </label>
+        <input type="text" name="createCableTag.name" th:field="*{name}" placeholder="Name" />
+
+        <button type="submit">Save new Cable</button>
+
+    </form>
+
+
+</body>
+</html>
